@@ -46,7 +46,7 @@ export default tseslint.config(
         sourceType: 'module',
         project: ['./tsconfig.json'],
         projectService: true,
-        tsconfigRootDir: import.meta.dirname, // Ensure type information is created
+        tsconfigRootDir: new URL('.', import.meta.url).pathname, // Ensure type information is created
       },
     },
     plugins: {
