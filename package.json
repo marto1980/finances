@@ -43,5 +43,8 @@
     "karma-jasmine": "~5.1",
     "karma-jasmine-html-reporter": "~2.1",
     "typescript": "~5.7"
+  },
+  "overrides": {
+    "rollup": "npm:@rollup/wasm-node@latest"
   }
 }
