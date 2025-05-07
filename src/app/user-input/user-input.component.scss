@@ -1,9 +1,10 @@
 form {
   padding: 1rem;
-  margin: 2rem 1rem;
+  margin: 2rem auto;
   border-radius: 4px;
   background: linear-gradient(180deg, #307e6c, #2b996d);
   box-shadow: 0 0 10px rgba(0, 0, 0, 50%);
+  max-width: 30rem;
 }
 
 .input-wrapper {
