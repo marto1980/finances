@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 
 import { INPUT_TYPES } from './user-input.model'
 
@@ -10,4 +10,8 @@ import { INPUT_TYPES } from './user-input.model'
 })
 export class UserInputComponent {
   inputTypes = INPUT_TYPES
+  @Output() calculate = new EventEmitter<void>()
+  onClick() {
+    this.calculate.emit()
+  }
 }

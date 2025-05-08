@@ -12,4 +12,8 @@ import { UserInputComponent } from './user-input/user-input.component'
 })
 export class AppComponent {
   title = 'finances'
+  isShowResults = false
+  onCalculate() {
+    this.isShowResults = true
+  }
 }
