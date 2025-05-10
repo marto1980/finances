@@ -10,4 +10,12 @@ const INPUT_TYPES = Object.entries(INPUT_TYPE).map(([key, value]) => ({
   label: value,
 }))
 
+type InputData = {
+  initialInvestment: number
+  annualInvestment: number
+  expectedReturn: number
+  duration: number
+}
+
 export { INPUT_TYPE, INPUT_TYPES }
+export type { InputData }

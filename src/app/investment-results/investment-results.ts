@@ -1,11 +1,4 @@
-type InvestmentResult = {
-  year: number
-  interest: number
-  valueEndOfYear: number
-  annualInvestment: number
-  totalInterest: number
-  totalAmountInvested: number
-}
+import { InvestmentResult } from './investment-result.model'
 
 const calculateInvestmentResults = (
   initialInvestment: number,

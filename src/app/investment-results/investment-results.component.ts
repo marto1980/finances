@@ -1,4 +1,7 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
+
+import { InputData } from '../user-input/user-input.model'
+import { calculateInvestmentResults } from './investment-results'
 
 @Component({
   selector: 'app-investment-results',
@@ -6,4 +9,15 @@ import { Component } from '@angular/core'
   templateUrl: './investment-results.component.html',
   styleUrl: './investment-results.component.scss',
 })
-export class InvestmentResultsComponent {}
+export class InvestmentResultsComponent {
+  @Input({ required: true }) inputData!: InputData
+
+  get investmentResults() {
+    return calculateInvestmentResults(
+      this.inputData.initialInvestment,
+      this.inputData.annualInvestment,
+      this.inputData.expectedReturn,
+      this.inputData.duration,
+    )
+  }
+}
