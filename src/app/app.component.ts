@@ -13,9 +13,9 @@ import { InputData } from './user-input/user-input.model'
 })
 export class AppComponent {
   title = 'finances'
-  isShowResults = false
   inputData: InputData | undefined
-  onCalculate() {
-    this.isShowResults = true
+  onCalculate(inputData: Readonly<InputData>) {
+    console.log('Calling onCalculate of AppComponent')
+    this.inputData = inputData
   }
 }

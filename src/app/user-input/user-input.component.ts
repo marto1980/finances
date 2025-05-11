@@ -1,7 +1,12 @@
 import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
-import { INPUT_TYPES } from './user-input.model'
+import {
+  INPUT_TYPES,
+  InputData,
+  InputFormData,
+  isInputData,
+} from './user-input.model'
 
 @Component({
   selector: 'app-user-input',
@@ -11,8 +16,18 @@ import { INPUT_TYPES } from './user-input.model'
 })
 export class UserInputComponent {
   inputTypes = INPUT_TYPES
-  @Output() calculate = new EventEmitter<void>()
+  formData: InputFormData = {
+    initialInvestment: undefined,
+    annualInvestment: undefined,
+    expectedReturn: undefined,
+    duration: undefined,
+  }
+  @Output() calculate = new EventEmitter<InputData>()
   onSubmit() {
-    this.calculate.emit()
+    console.log('Calling onSubmit in UserInputComponent')
+    console.log('formData', this.formData)
+    if (isInputData(this.formData)) {
+      this.calculate.emit(this.formData)
+    }
   }
 }

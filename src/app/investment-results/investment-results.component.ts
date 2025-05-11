@@ -13,6 +13,8 @@ export class InvestmentResultsComponent {
   @Input({ required: true }) inputData!: InputData
 
   get investmentResults() {
+    console.log('Calculating investment results')
+
     return calculateInvestmentResults(
       this.inputData.initialInvestment,
       this.inputData.annualInvestment,

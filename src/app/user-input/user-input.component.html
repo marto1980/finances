@@ -3,7 +3,12 @@
     @for (inputType of inputTypes; track inputType.id) {
       <div class="input-wrapper">
         <label [for]="inputType.id">{{ inputType.label }}</label>
-        <input type="number" [id]="inputType.id" [name]="inputType.id" />
+        <input
+          type="number"
+          [id]="inputType.id"
+          [name]="inputType.id"
+          [(ngModel)]="formData[inputType.id]"
+        />
       </div>
     }
     <button>CALCULATE</button>

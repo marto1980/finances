@@ -1,15 +1,3 @@
-enum INPUT_TYPE {
-  INITIAL_INVESTMENT = 'INITIAL INVESTMENT',
-  ANNUAL_INVESTMENT = 'ANNUAL INVESTMENT',
-  EXPECTED_RETURN = 'EXPECTED RETURN',
-  DURATION = 'DURATION',
-}
-
-const INPUT_TYPES = Object.entries(INPUT_TYPE).map(([key, value]) => ({
-  id: key,
-  label: value,
-}))
-
 type InputData = {
   initialInvestment: number
   annualInvestment: number
@@ -17,5 +5,19 @@ type InputData = {
   duration: number
 }
 
-export { INPUT_TYPE, INPUT_TYPES }
-export type { InputData }
+type InputFormData = { [key in keyof InputData]: number | undefined }
+
+const isInputData = (obj: InputFormData): obj is InputData =>
+  Object.entries(obj).every((entry) => typeof entry[1] === 'number')
+
+const INPUT_TYPES: { id: keyof InputData; label: string }[] = [
+  {
+    id: 'initialInvestment',
+    label: 'INITIAL INVESTMENT',
+  },
+  { id: 'annualInvestment', label: 'ANNUAL INVESTMENT' },
+  { id: 'expectedReturn', label: 'EXPECTED RETURN' },
+  { id: 'duration', label: 'DURATION' },
+]
+export { INPUT_TYPES, isInputData }
+export type { InputData, InputFormData }
