@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
 import {
+  initialFormData,
   INPUT_TYPES,
   InputData,
   InputFormData,
@@ -16,16 +17,12 @@ import {
 })
 export class UserInputComponent {
   inputTypes = INPUT_TYPES
-  formData: InputFormData = {
-    initialInvestment: undefined,
-    annualInvestment: undefined,
-    expectedReturn: undefined,
-    duration: undefined,
-  }
+  formData: InputFormData = { ...initialFormData }
   @Output() calculate = new EventEmitter<InputData>()
   onSubmit() {
     if (isInputData(this.formData)) {
       this.calculate.emit(this.formData)
+      this.formData = { ...initialFormData }
     }
   }
 }

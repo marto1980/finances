@@ -10,6 +10,12 @@ type InputFormData = { [key in keyof InputData]: number | undefined }
 const isInputData = (obj: InputFormData): obj is InputData =>
   Object.entries(obj).every((entry) => typeof entry[1] === 'number')
 
+const initialFormData: InputFormData = {
+  initialInvestment: undefined,
+  annualInvestment: undefined,
+  expectedReturn: undefined,
+  duration: undefined,
+}
 const INPUT_TYPES: { id: keyof InputData; label: string }[] = [
   {
     id: 'initialInvestment',
@@ -19,5 +25,5 @@ const INPUT_TYPES: { id: keyof InputData; label: string }[] = [
   { id: 'expectedReturn', label: 'EXPECTED RETURN' },
   { id: 'duration', label: 'DURATION' },
 ]
-export { INPUT_TYPES, isInputData }
+export { INPUT_TYPES, isInputData, initialFormData }
 export type { InputData, InputFormData }
