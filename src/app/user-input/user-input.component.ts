@@ -24,8 +24,6 @@ export class UserInputComponent {
   }
   @Output() calculate = new EventEmitter<InputData>()
   onSubmit() {
-    console.log('Calling onSubmit in UserInputComponent')
-    console.log('formData', this.formData)
     if (isInputData(this.formData)) {
       this.calculate.emit(this.formData)
     }

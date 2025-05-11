@@ -15,7 +15,6 @@ export class AppComponent {
   title = 'finances'
   inputData: InputData | undefined
   onCalculate(inputData: Readonly<InputData>) {
-    console.log('Calling onCalculate of AppComponent')
     this.inputData = inputData
   }
 }
