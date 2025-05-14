@@ -31,9 +31,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19",
-    "@angular-eslint/eslint-plugin": "^19",
-    "@angular-eslint/eslint-plugin-template": "^19",
-    "@angular-eslint/template-parser": "^19",
+    "angular-eslint": "^19",
     "@angular/cli": "^19",
     "@angular/compiler-cli": "^19",
     "@trivago/prettier-plugin-sort-imports": "^5",

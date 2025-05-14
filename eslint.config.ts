@@ -1,8 +1,9 @@
 import eslint from '@eslint/js'
+import angularEslint from 'angular-eslint'
 import arrayFunc from 'eslint-plugin-array-func'
 import functional from 'eslint-plugin-functional'
 import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions'
-import prettier from 'eslint-plugin-prettier/recommended'
+import prettierRecommended from 'eslint-plugin-prettier/recommended'
 import promise from 'eslint-plugin-promise'
 import security from 'eslint-plugin-security'
 import sonarjs from 'eslint-plugin-sonarjs'
@@ -10,18 +11,7 @@ import unicorn from 'eslint-plugin-unicorn'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-  functional.configs.externalTypeScriptRecommended,
-  functional.configs.recommended,
-  functional.configs.stylistic,
-  arrayFunc.configs.recommended,
-  eslint.configs.recommended,
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
-  prettier,
-  sonarjs.configs.recommended,
-  security.configs.recommended,
-  promise.configs['flat/recommended'],
-  unicorn.configs['recommended'],
+  // Global ignores (applies to all config blocks)
   {
     ignores: [
       'node_modules/**', // Ignore node_modules
@@ -49,12 +39,46 @@ export default tseslint.config(
         tsconfigRootDir: new URL('.', import.meta.url).pathname, // Ensure type information is created
       },
     },
+    // Set the custom processor which will allow us to have our inline Component templates extracted
+    // and treated as if they are HTML files (and therefore have the .html config below applied to them)
+    processor: angularEslint.processInlineTemplates,
     plugins: {
       'prefer-arrow-functions': preferArrowFunctions,
     },
+    extends: [
+      eslint.configs.recommended, // Apply the recommended eslint core rules
+      tseslint.configs.strictTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
+      functional.configs.externalTypeScriptRecommended,
+      functional.configs.recommended,
+      functional.configs.stylistic,
+      arrayFunc.configs.recommended,
+      prettierRecommended,
+      sonarjs.configs.recommended,
+      security.configs.recommended,
+      promise.configs['flat/recommended'],
+      unicorn.configs['recommended'],
+      ...angularEslint.configs.tsRecommended, // Apply the recommended Angular rules for TypeScript
+    ],
     rules: {
       // ESLint rules
       'newline-before-return': 'warn',
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'app',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'app',
+          style: 'kebab-case',
+        },
+      ],
 
       // Prettier formatting
       'prettier/prettier': 'warn',
@@ -111,42 +135,16 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/*.component.ts', '**/*.service.ts', '**/*.directive.ts'], // Angular-specific files
-    rules: {
-      'functional/no-classes': 'off',
-      '@typescript-eslint/no-extraneous-class': 'off',
-    },
-  },
-  {
-    files: ['**/*.test.{ts,ts}'], // Match test files
-    languageOptions: {
-      parser: tseslint.parser, // Use TypeScript parser for test files
-    },
-    rules: {
-      // Jest-specific rules
-      'jest/no-disabled-tests': 'warn', // Override specific rules
-      'jest/no-focused-tests': 'error',
-      'jest/no-identical-title': 'error',
-
-      // Disable all rules from eslint-plugin-functional
-      ...Object.fromEntries(
-        Object.keys(functional.configs.off.rules ?? {}).map((rule) => [
-          rule,
-          'off',
-        ]),
-      ),
-      // Add padding line rule for function calls
-      'padding-line-between-statements': [
-        'error',
-        { blankLine: 'always', prev: '*', next: 'block-like' },
-        { blankLine: 'always', prev: '*', next: 'expression' },
-      ],
-    },
-    settings: {
-      jest: {
-        version: 'detect', // Automatically detect Jest version
-      },
-      'testing-library/utils-module': ['**/__test-utils__'],
-    },
+    // Everything in this config object targets our HTML files (external templates,
+    // and inline templates as long as we have the `processor` set on our TypeScript config above)
+    files: ['**/*.html'],
+    extends: [
+      // Apply the recommended Angular template rules
+      ...angularEslint.configs.templateRecommended,
+      // Apply the Angular template rules which focus on accessibility of our apps
+      ...angularEslint.configs.templateAccessibility,
+      prettierRecommended, // here we inherit from the recommended setup from eslint-plugin-prettier for HTML
+    ],
+    rules: {},
   },
 )
