@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, signal } from '@angular/core'
 
 import { HeaderComponent } from './header/header.component'
 import { InvestmentResultsComponent } from './investment-results/investment-results.component'
@@ -13,9 +13,9 @@ import { InputData } from './user-input/user-input.model'
 })
 export class AppComponent {
   title = 'finances'
-  inputData: InputData | undefined
+  inputData = signal<InputData | undefined>(void 0)
 
   onCalculate(inputData: Readonly<InputData>) {
-    this.inputData = inputData
+    this.inputData.set(inputData)
   }
 }

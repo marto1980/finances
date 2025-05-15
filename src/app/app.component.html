@@ -1,5 +1,6 @@
 <app-header />
 <app-user-input (calculate)="onCalculate($event)" />
-@if (inputData) {
-  <app-investment-results [inputData]="inputData" />
+@if (inputData()) {
+  <!-- Using the ! operator here is unavoidable until Angular introduces support for 'as' in @if -->
+  <app-investment-results [inputData]="inputData()!" />
 }
