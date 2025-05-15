@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input } from '@angular/core'
+import { Component, computed, input } from '@angular/core'
 
 import { InputData } from '../user-input/user-input.model'
 import { calculateInvestmentResults } from './investment-results'
@@ -11,14 +11,14 @@ import { calculateInvestmentResults } from './investment-results'
   styleUrl: './investment-results.component.scss',
 })
 export class InvestmentResultsComponent {
-  @Input({ required: true }) inputData!: InputData
-
-  get investmentResults() {
-    return calculateInvestmentResults(
-      this.inputData.initialInvestment,
-      this.inputData.annualInvestment,
-      this.inputData.expectedReturn,
-      this.inputData.duration,
+  inputData = input.required<InputData>()
+  private readonly callInvestmentResults = () =>
+    calculateInvestmentResults(
+      this.inputData().initialInvestment,
+      this.inputData().annualInvestment,
+      this.inputData().expectedReturn,
+      this.inputData().duration,
     )
-  }
+
+  investmentResults = computed(this.callInvestmentResults)
 }

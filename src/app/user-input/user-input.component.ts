@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core'
+import { Component, output, signal } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
 import {
@@ -18,7 +18,7 @@ import {
 export class UserInputComponent {
   inputTypes = INPUT_TYPES
   formData = signal<InputFormData>({ ...initialFormData })
-  @Output() calculate = new EventEmitter<InputData>()
+  calculate = output<InputData>()
   onSubmit() {
     const formData = this.formData()
     if (isInputData(formData)) {
