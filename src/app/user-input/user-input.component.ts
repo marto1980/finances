@@ -1,13 +1,8 @@
-import { Component, output, signal } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 
-import {
-  initialFormData,
-  INPUT_TYPES,
-  InputData,
-  InputFormData,
-  isInputData,
-} from './user-input.model'
+import { InvestmentResultsService } from '../investment-results.service'
+import { INPUT_TYPES } from './user-input.model'
 
 @Component({
   selector: 'app-user-input',
@@ -17,13 +12,9 @@ import {
 })
 export class UserInputComponent {
   inputTypes = INPUT_TYPES
-  formData = signal<InputFormData>({ ...initialFormData })
-  calculate = output<InputData>()
-  onSubmit() {
-    const formData = this.formData()
-    if (isInputData(formData)) {
-      this.calculate.emit(formData)
-      this.formData.set(initialFormData)
-    }
+  private readonly investmentResultsService = inject(InvestmentResultsService)
+  get formData() {
+    return this.investmentResultsService.formData
   }
+  onSubmit = this.investmentResultsService.onCalculate
 }

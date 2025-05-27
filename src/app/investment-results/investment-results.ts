@@ -1,4 +1,4 @@
-import { InvestmentResult } from './investment-result.model'
+import { InvestmentResult } from './investment-results.model'
 
 const calculateInvestmentResults = (
   initialInvestment: number,

@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common'
-import { Component, computed, input } from '@angular/core'
+import { Component, inject } from '@angular/core'
 
-import { InputData } from '../user-input/user-input.model'
-import { calculateInvestmentResults } from './investment-results'
+import { InvestmentResultsService } from '../investment-results.service'
 
 @Component({
   selector: 'app-investment-results',
@@ -11,14 +10,7 @@ import { calculateInvestmentResults } from './investment-results'
   styleUrl: './investment-results.component.scss',
 })
 export class InvestmentResultsComponent {
-  inputData = input.required<InputData>()
-  private readonly callInvestmentResults = () =>
-    calculateInvestmentResults(
-      this.inputData().initialInvestment,
-      this.inputData().annualInvestment,
-      this.inputData().expectedReturn,
-      this.inputData().duration,
-    )
-
-  investmentResults = computed(this.callInvestmentResults)
+  private readonly investmentResultsService = inject(InvestmentResultsService)
+  inputData = this.investmentResultsService.formData
+  investmentResults = this.investmentResultsService.investmentResults
 }
