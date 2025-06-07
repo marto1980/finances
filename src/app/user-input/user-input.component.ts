@@ -12,7 +12,7 @@ import { INPUT_TYPES } from './user-input.model'
 })
 export class UserInputComponent {
   inputTypes = INPUT_TYPES
-  private readonly investmentResultsService = inject(InvestmentResultsService)
+  readonly investmentResultsService = inject(InvestmentResultsService)
   get formData() {
     return this.investmentResultsService.formData
   }

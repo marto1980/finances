@@ -10,7 +10,6 @@ import { InvestmentResultsService } from '../investment-results.service'
   styleUrl: './investment-results.component.scss',
 })
 export class InvestmentResultsComponent {
-  private readonly investmentResultsService = inject(InvestmentResultsService)
+  readonly investmentResultsService = inject(InvestmentResultsService)
   inputData = this.investmentResultsService.formData
-  investmentResults = this.investmentResultsService.investmentResults
 }

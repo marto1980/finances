@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, signal } from '@angular/core'
 
 import { calculateInvestmentResults } from './investment-results/investment-results'
 import { InvestmentResult } from './investment-results/investment-results.model'
@@ -11,16 +11,18 @@ import {
 @Injectable({ providedIn: 'root' })
 class InvestmentResultsService {
   formData: InputFormData = { ...initialFormData }
-  investmentResults: readonly InvestmentResult[] = []
+  investmentResults = signal<InvestmentResult[]>([])
 
   onCalculate = () => {
     if (isInputData(this.formData)) {
-      this.investmentResults = calculateInvestmentResults(
-        this.formData.initialInvestment,
-        this.formData.annualInvestment,
-        this.formData.expectedReturn,
-        this.formData.duration,
-      )
+      this.investmentResults.set([
+        ...calculateInvestmentResults(
+          this.formData.initialInvestment,
+          this.formData.annualInvestment,
+          this.formData.expectedReturn,
+          this.formData.duration,
+        ),
+      ])
     }
     this.formData = { ...initialFormData }
   }

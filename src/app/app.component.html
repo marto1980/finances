@@ -1,5 +1,5 @@
 <app-header />
 <app-user-input />
-@if (investmentResults.length) {
+@if (investmentResultsService.investmentResults().length > 0) {
   <app-investment-results />
 }

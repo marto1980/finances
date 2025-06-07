@@ -13,8 +13,5 @@ import { UserInputComponent } from './user-input/user-input.component'
 })
 export class AppComponent {
   title = 'finances'
-  private readonly investmentResultsService = inject(InvestmentResultsService)
-  get investmentResults() {
-    return this.investmentResultsService.investmentResults
-  }
+  readonly investmentResultsService = inject(InvestmentResultsService)
 }
