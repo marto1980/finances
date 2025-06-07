@@ -10,21 +10,22 @@ import {
 
 @Injectable({ providedIn: 'root' })
 class InvestmentResultsService {
-  formData: InputFormData = { ...initialFormData }
+  formData = signal<InputFormData>({ ...initialFormData })
   investmentResults = signal<InvestmentResult[]>([])
 
   onCalculate = () => {
-    if (isInputData(this.formData)) {
+    const data = this.formData()
+    if (isInputData(data)) {
       this.investmentResults.set([
         ...calculateInvestmentResults(
-          this.formData.initialInvestment,
-          this.formData.annualInvestment,
-          this.formData.expectedReturn,
-          this.formData.duration,
+          data.initialInvestment,
+          data.annualInvestment,
+          data.expectedReturn,
+          data.duration,
         ),
       ])
     }
-    this.formData = { ...initialFormData }
+    this.formData.set({ ...initialFormData })
   }
 }
 

@@ -13,8 +13,5 @@ import { INPUT_TYPES } from './user-input.model'
 export class UserInputComponent {
   inputTypes = INPUT_TYPES
   readonly investmentResultsService = inject(InvestmentResultsService)
-  get formData() {
-    return this.investmentResultsService.formData
-  }
   onSubmit = this.investmentResultsService.onCalculate
 }

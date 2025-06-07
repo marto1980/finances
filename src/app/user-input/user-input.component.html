@@ -7,7 +7,7 @@
           type="number"
           [id]="inputType.id"
           [name]="inputType.id"
-          [(ngModel)]="formData[inputType.id]"
+          [(ngModel)]="investmentResultsService.formData()[inputType.id]"
         />
       </div>
     }
