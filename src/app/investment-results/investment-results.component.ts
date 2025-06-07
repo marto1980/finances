@@ -11,5 +11,4 @@ import { InvestmentResultsService } from '../investment-results.service'
 })
 export class InvestmentResultsComponent {
   readonly investmentResultsService = inject(InvestmentResultsService)
-  inputData = this.investmentResultsService.formData
 }
