@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core'
-import { FormsModule } from '@angular/forms'
 
 import { InvestmentResultsService } from '../investment-results.service'
 import { INPUT_TYPES } from './user-input.model'
 
 @Component({
   selector: 'app-user-input',
-  imports: [FormsModule],
+  // eslint-disable-next-line @angular-eslint/prefer-standalone
+  standalone: false,
   templateUrl: './user-input.component.html',
   styleUrl: './user-input.component.scss',
 })
