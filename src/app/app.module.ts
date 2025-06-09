@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
@@ -10,10 +9,6 @@ import { UserInputModule } from './user-input/user-input.module'
 @NgModule({
   declarations: [AppComponent, HeaderComponent, InvestmentResultsComponent], // non-standalone components
   bootstrap: [AppComponent],
-  imports: [
-    BrowserModule,
-    CommonModule, // shared module
-    UserInputModule,
-  ], // standalone components
+  imports: [BrowserModule, UserInputModule], // standalone components
 })
 export class AppModule {}
